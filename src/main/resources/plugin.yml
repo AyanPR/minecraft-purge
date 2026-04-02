@@ -1,7 +1,7 @@
 name: Purge
 version: 1.0.1
 main: dev.josantonius.minecraft.purge.Main
-api-version: 1.19
+api-version: 1.21
 author: Josantonius
 description: Purge plugin for Minecraft
 
