@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.20'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.24'
     id 'maven-publish'
 }
 
@@ -11,7 +11,7 @@ version '1.0.1'
 ext {
     _name = 'purge'
     _server = 'purpur'
-    _api = '1.19.3'
+    _api = '1.21.11'
 }
 
 repositories {
@@ -21,15 +21,15 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.purpurmc.purpur:purpur-api:1.19.3-R0.1-SNAPSHOT")
+    compileOnly("org.purpurmc.purpur:purpur-api:1.21.11-R0.1-SNAPSHOT")
     compileOnly("net.luckperms:api:5.4")
-    implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10')
+    implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24')
     implementation('dev.josantonius:minecraft-messaging:v1.1.0')
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
@@ -55,12 +55,12 @@ tasks.withType(JavaCompile) {
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
