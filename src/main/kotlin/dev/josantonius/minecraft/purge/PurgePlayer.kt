@@ -48,7 +48,7 @@ class PurgePlayer(private val plugin: Main) {
 
     fun addGlowingEffect(player: Player) {
         player.addPotionEffect(
-                PotionEffect(PotionEffectType.GLOWING, Int.MAX_VALUE, 0, true, false, false, null)
+                PotionEffect(PotionEffectType.GLOWING, Int.MAX_VALUE, 0, true, false, false)
         )
     }
 
