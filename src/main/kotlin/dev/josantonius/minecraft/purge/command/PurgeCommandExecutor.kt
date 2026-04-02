@@ -147,24 +147,24 @@ class PurgeCommandExecutor(private val plugin: Main, private val purge: PurgeMan
         return true
     }
 
-    private fun parseDuration(timeString: String): Duration {
-        var remaining = timeString
-        var duration = Duration.ZERO
-
-        while (remaining.isNotEmpty()) {
-            val value = remaining.takeWhile { it.isDigit() }.toInt()
-            val unit = remaining.takeLastWhile { !it.isDigit() }
-            val unitDuration =
-                    when (unit) {
-                        "s" -> Duration.ofSeconds(value.toLong())
-                        "m" -> Duration.ofMinutes(value.toLong())
-                        "h" -> Duration.ofHours(value.toLong())
-                        "d" -> Duration.ofDays(value.toLong())
-                        else -> throw IllegalArgumentException("error.time.invalid")
-                    }
-            duration = duration.plus(unitDuration)
-            remaining = remaining.dropWhile { it.isDigit() }.dropWhile { !it.isDigit() }
-        }
+   private fun parseDuration(timeString: String): Duration {
+    var duration = Duration.ZERO
+    val matcher = Pattern.compile("(\\d+)([smhd])").matcher(timeString)
+    while (matcher.find()) {
+        val value = matcher.group(1).toLong()
+        val unit  = matcher.group(2)
+        duration = duration.plus(
+            when (unit) {
+                "s"  -> Duration.ofSeconds(value)
+                "m"  -> Duration.ofMinutes(value)
+                "h"  -> Duration.ofHours(value)
+                "d"  -> Duration.ofDays(value)
+                else -> throw IllegalArgumentException("error.time.invalid")
+            }
+        )
+    }
+    return duration
+}
         return duration
     }
 }
