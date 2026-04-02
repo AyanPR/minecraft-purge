@@ -1,7 +1,8 @@
 package dev.josantonius.minecraft.purge
 
 import org.bukkit.Bukkit
-import org.bukkit.SoundCategory
+import net.kyori.adventure.sound.SoundStop
+import net.kyori.adventure.sound.Sound as AdventureSound
 
 class PurgeSound(private val plugin: Main) {
     fun playPurgeSound(customSound: String?) {
@@ -25,13 +26,13 @@ class PurgeSound(private val plugin: Main) {
 
     fun stopMinecraftMusic() {
         for (player in Bukkit.getOnlinePlayers()) {
-            player.stopSound(SoundCategory.MUSIC)
+            player.stopSound(SoundStop.source(AdventureSound.Source.MUSIC))
         }
     }
 
     fun stopPluginMusic() {
         for (player in Bukkit.getOnlinePlayers()) {
-            player.stopSound(SoundCategory.MASTER)
+            player.stopSound(SoundStop.source(AdventureSound.Source.MASTER))
         }
     }
 }
