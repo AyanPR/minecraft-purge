@@ -1,14 +1,23 @@
 package dev.josantonius.minecraft.purge
 
 import org.bukkit.Bukkit
+import org.bukkit.SoundCategory
+import org.bukkit.entity.Player
 import net.kyori.adventure.sound.SoundStop
-import net.kyori.adventure.sound.Sound as AdventureSound
 
 class PurgeSound(private val plugin: Main) {
+
     fun playPurgeSound(customSound: String?) {
         if (customSound == null) return
+
         for (player in Bukkit.getOnlinePlayers()) {
-            player.playSound(player.location, customSound, SoundCategory.MASTER, 1.0f, 1.0f)
+            player.playSound(
+                player.location,
+                customSound,
+                SoundCategory.MASTER,
+                1.0f,
+                1.0f
+            )
         }
     }
 
@@ -26,13 +35,13 @@ class PurgeSound(private val plugin: Main) {
 
     fun stopMinecraftMusic() {
         for (player in Bukkit.getOnlinePlayers()) {
-            player.stopSound(SoundStop.source(AdventureSound.Source.MUSIC))
+            player.stopSound(SoundStop.all())
         }
     }
 
     fun stopPluginMusic() {
         for (player in Bukkit.getOnlinePlayers()) {
-            player.stopSound(SoundStop.source(AdventureSound.Source.MASTER))
+            player.stopSound(SoundStop.all())
         }
     }
 }
