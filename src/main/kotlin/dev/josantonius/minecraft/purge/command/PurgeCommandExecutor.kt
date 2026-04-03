@@ -147,12 +147,14 @@ class PurgeCommandExecutor(private val plugin: Main, private val purge: PurgeMan
         return true
     }
 
-   private fun parseDuration(timeString: String): Duration {
+private fun parseDuration(timeString: String): Duration {
     var duration = Duration.ZERO
     val matcher = Pattern.compile("(\\d+)([smhd])").matcher(timeString)
+
     while (matcher.find()) {
         val value = matcher.group(1).toLong()
         val unit  = matcher.group(2)
+
         duration = duration.plus(
             when (unit) {
                 "s"  -> Duration.ofSeconds(value)
@@ -164,7 +166,4 @@ class PurgeCommandExecutor(private val plugin: Main, private val purge: PurgeMan
         )
     }
     return duration
-}
-        return duration
-    }
 }
