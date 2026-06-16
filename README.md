@@ -8,12 +8,12 @@ Purge plugin for Minecraft servers.
 
 ## Requirements
 
-- Java 17 or higher.
-- Purpur server 1.19.3 or Bukkit/Spigot/Paper server compatible with the Purpur API version used.
+- Java 25 or higher.
+- Paper server 26.1.2, or any Paper fork (e.g. Purpur) compatible with the Paper API version used.
 
 ## Installation
 
-1. Download the JAR file: [purge-1.0.1-purpur-1.19.3.jar](/build/libs/purge-1.0.1-purpur-1.19.3.jar).
+1. Download the JAR file: [purge-1.0.3-paper-26.1.2.jar](/build/libs/purge-1.0.3-paper-26.1.2.jar).
 
 1. Place the JAR file in the plugins folder of your Minecraft server.
 
@@ -23,7 +23,7 @@ Purge plugin for Minecraft servers.
 
 To build the plugin yourself, follow these steps:
 
-1. Make sure you have `Java 17` or higher and `Gradle` installed on your system.
+1. Make sure you have `Java 25` or higher and `Gradle 9.5+` installed on your system.
 
 1. Clone the plugin repository on your local machine:
 
