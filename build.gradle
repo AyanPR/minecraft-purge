@@ -1,41 +1,48 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.20'
+    id 'com.gradleup.shadow' version '9.4.2'
+    id 'org.jetbrains.kotlin.jvm' version '2.4.0'
     id 'maven-publish'
 }
 
 group 'dev.josantonius.minecraft.purge'
-version '1.0.1'
+version '1.0.3'
 
 ext {
     _name = 'purge'
-    _server = 'purpur'
-    _api = '1.19.3'
+    _server = 'paper'
+    _api = '26.1.2'
 }
 
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-    maven { url "https://repo.purpurmc.org/snapshots" }
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
 }
 
 dependencies {
-    compileOnly("org.purpurmc.purpur:purpur-api:1.19.3-R0.1-SNAPSHOT")
-    compileOnly("net.luckperms:api:5.4")
-    implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10')
+    compileOnly("io.papermc.paper:paper-api:${_api}.build.+")
+    compileOnly('net.luckperms:api:5.5')
     implementation('dev.josantonius:minecraft-messaging:v1.1.0')
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+// jvmToolchain configura automáticamente tanto las tareas de Kotlin
+// como las de Java para usar JDK 25, evitando el típico error de
+// "Inconsistent JVM-target compatibility" entre compileJava y compileKotlin.
+kotlin {
+    jvmToolchain(25)
 }
 
 jar {
     manifest {
         attributes 'Main-Class': 'dev.josantonius.minecraft.purge.Main'
     }
+    exclude('.github/**')
+    exclude('libs/**')
+    exclude('.gitignore')
+    exclude('.CHANGELOG.md')
+    exclude('README.md')
+    exclude('LICENSE')
 }
 
 shadowJar {
@@ -51,26 +58,7 @@ shadowJar {
 
 tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xlint:deprecation"
-}
-
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-}
-
-jar {
-    exclude('.github/**')
-    exclude('libs/**')
-    exclude('.gitignore')
-    exclude('.CHANGELOG.md')
-    exclude('README.md')
-    exclude('LICENSE')
+    options.release = 25
 }
 
 publishing {
@@ -78,7 +66,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'dev.josantonius.minecraft.purge'
             artifactId = 'minecraft-plugin'
-            version = 'boss_bar'
+            version = project.version
             pom {
                 name = 'Minecraft Purge Plugin'
                 description = 'Purge plugin for Minecraft'
